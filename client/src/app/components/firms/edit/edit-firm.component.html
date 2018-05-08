@@ -1,0 +1,116 @@
+<h1>EDIT FIRM:</h1>
+
+<form #addFirmForm='ngForm' (ngSubmit)='onSubmit(addFirmForm)'>
+    <div class="form-group">
+      <label for="firm">Firm name:</label>
+      <input 
+        type="text" 
+        id="firm" 
+        name="firm" 
+        value="{{firmName}}"
+        [(ngModel)]='firm.firm' 
+        #firm='ngModel'/>
+    </div>  
+  
+    <div class="form-group">
+      <label for="uniqueIdentifier">Unique identifier:</label>
+      <input 
+        type="text" 
+        id="uniqueIdentifier"
+        name="uniqueIdentifier"
+        value="{{firmUniqueIdentifier}}"
+        [(ngModel)]='firm.uniqueIdentifier'
+        #uniqueIdentifier='ngModel'/>      
+    </div>
+  
+    <div class="form-group">
+      <label for="address">Address:</label>
+      <input 
+        type="text" 
+        id="address"
+        name="address"
+        value="{{firmAddress}}" 
+        [(ngModel)]='firm.address'
+        #address='ngModel'/>      
+    </div>
+  
+    <div class="form-group">
+      <label for="contactPerson">Contact person:</label>
+      <input 
+        type="text" 
+        id="contactPerson"
+        name="contactPerson" 
+        value="{{firmContactPerson}}"
+        [(ngModel)]='firm.contactPerson'
+        #contactPerson='ngModel'/>     
+    </div>  
+  
+    <div class="form-group">
+      <label for="contacts">Contacts:</label>
+      <input 
+        type="text"
+        id="contacts"
+        name="contacts" 
+        value="{{firmContacts}}"
+        [(ngModel)]='firm.contacts'
+        #contacts='ngModel'/>  
+    </div>
+    
+    <div class="form-group">
+        <label for="website">Website:</label>
+        <input 
+          type="text"
+          id="website"
+          name="website" 
+          value="{{firmWebsite}}"
+          [(ngModel)]='firm.website'
+          #website='ngModel'/>  
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input 
+          type="email"
+          id="email"
+          name="email" 
+          value="{{firmEmail}}"
+          [(ngModel)]='firm.email'
+          #email='ngModel'/>           
+      </div>
+
+      <div class="form-group">
+          <label for="town">Town:</label>
+          <input 
+            type="text"
+            id="town"
+            name="town" 
+            value="{{firmTown}}"
+            [(ngModel)]='firm.town'
+            #town='ngModel'/>           
+        </div>
+
+      <div class="form-group">
+        <label for="fieldOfWork">Field of work:</label>
+        <input 
+          type="text"
+          id="fieldOfWork"
+          name="fieldOfWork"
+          value="{{firmFieldOfWork}}" 
+          [(ngModel)]='firm.fieldOfWork'
+          #fieldOfWork='ngModel'/>  
+      </div>
+
+      <div class="form-group">
+        <label for="comments">Comments:</label>
+        <textarea
+          type="textarea"
+          id="comments"
+          name="comments" 
+          value="{{firmComments}}"
+          [(ngModel)]='firm.comments'
+          #comments='ngModel'
+        ></textarea>  
+      </div>
+  
+    <button type="submit" [disabled]="!addFirmForm.form.valid" class="btn btn-success">Edit firm</button>
+  </form>

@@ -1,0 +1,42 @@
+table{
+    width: 90%;
+    margin: 0 auto;
+}
+th{
+  border: 2px solid black;
+  text-align: center;
+  color: red;
+}
+td{
+  border: 2px solid #ccc;
+  padding: 5px;
+}
+ul{
+  list-style-type: none;
+}
+.admin-panel{
+  padding: 2% 0 2% 0; 
+}
+.employees-without-assigns{
+  background-color: #a2b8db;
+  border-radius: 15px;
+  box-shadow: 8px 4px 5px -2px rgba(0,0,0,0.52);
+}
+.search{
+  padding-top: 30px;
+}
+.nothing-found-notification{
+  color:red;
+}
+.firms-without-assings, 
+.firms-with-assings,
+.employees-without-assigns,
+.employees-with-assigns{
+  height: 500px;
+  overflow: auto;
+}
+.firms-without-assings{
+  background-color: #a2b8db;
+  box-shadow: 8px 4px 5px -2px rgba(0,0,0,0.52);
+  border-radius: 15px;
+}

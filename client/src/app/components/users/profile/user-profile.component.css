@@ -1,0 +1,60 @@
+
+
+img{
+  height: 200px;
+}
+span{
+  font-weight: bold;
+}
+.total-price{
+  color:red;
+  font-size: 1.5em;
+}
+.green-line{
+  color: #ccffcc;
+}
+.user-names{
+  color: red;
+}
+a{
+  text-decoration: none;
+  color: white;
+}
+p>span{
+  font-weight: bold;
+}
+table{
+  margin-top: 20px;
+}
+.assign-holder{
+  margin-top: 20px;
+  margin-left: -300px; 
+  word-break: break-all;
+}
+.notification{
+  background-color: red;
+  padding: 10px;
+  border-radius: 15px;
+}
+.assign-holder ul li{
+  background-color:#DBDCDD; 
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 15px;
+}
+.assign-holder>ul{
+  overflow: auto;
+  height: 550px;
+}
+.end-date-holder{
+  border-radius: 5px;
+}
+.firm-for-current-employee{
+  background-color:#DBDCDD;
+  overflow: auto;
+  margin-top: 20px;
+  margin-left: 50px;
+  border-radius: 15px;
+  height: 550px;
+  width: auto;
+}

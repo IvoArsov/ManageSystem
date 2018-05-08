@@ -1,0 +1,145 @@
+<body>
+  <h1>
+    Assigns for:
+    <span class="user-names">{{username}}</span>
+  </h1>
+  <button class="btn btn-success btn-lg" (click)="selfAssign()">Self-assign</button>
+  <div *ngIf="assigns.length === 0">
+    <h3>No assigns yet!</h3>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 assign-holder">
+        <div *ngIf="notifications.length > 0">
+          <ul>
+            <li *ngFor="let notif of notifications">
+              <div  class="notification" *ngIf="notif.checked === 0 && isMarkedNotification">
+                <p>
+                  <span>Task:</span> {{notif.task}}</p>
+                <p>
+                  <span>End date:</span> {{notif.end_date | date:'longDate'}}</p>
+                <p>
+                  <span>Status:</span> {{notif.status}}</p>
+                <button class="btn btn-success" (click)="markAsRead(notif.notification_id)">Mark as read and Delete</button>
+                <button class="btn btn-success" (click)="goToAssignProfile(notif.assign_id)">Go to Assign</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!--<table class="assigns-table" *ngIf="assigns.length > 0">
+          <tr>
+            <th>Task</th>
+            <th>End date</th>
+            <th>Firm</th>
+            <th>Notes</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let assign of assigns" [ngStyle]="{'background-color': dateNow < assign.end_date ? '#5CB85C' : '#D9534F'}">
+            <td>
+              <button class="btn btn-primary btn-sm" (click)="goToAssignProfile(assign.id)">{{assign.task}}</button>
+            </td>
+            <td>{{assign.end_date | date:'longDate'}}</td>
+            <td>{{assign.firm}}</td>
+            <td>{{assign.notes}}</td>
+            <td>{{assign.status}}</td>
+            <td>
+              <button class="btn btn-primary btn-sm" (click)="editAssign(assign.id)">Edit</button>
+              <button class="btn btn-warning btn-sm">
+                <a href="mailto:{{assign.email}}">Message to Firm</a>
+              </button>
+              <button class="btn btn-primary btn-sm" *ngIf="role === 'admin'" (click)="deleteAssign(assign.id)">Delete</button>
+              <button class="btn btn-primary btn-sm" (click)="createReport(assign.id)">Report</button>
+            </td>
+          </tr>
+        </table>-->
+
+        <ul>
+          <li *ngFor="let assign of assigns"  [ngStyle]="{'background-color': dateNow < assign.end_date ? '#5CB85C' : '#D9534F'}">
+            <p>Task: <button class="btn btn-primary btn-sm" (click)="goToAssignProfile(assign.id)">{{assign.task}}</button></p>
+            <div class="end-date-holder">
+                <p>End Date: {{assign.end_date | date:'longDate'}}</p>
+            </div>
+            <p>Firm: {{assign.firm}}</p>
+            <p>Notes: {{assign.notes}}</p>
+            <p>Status: {{assign.status}}</p>
+            <div>
+                <button class="btn btn-primary btn-sm" (click)="editAssign(assign.id)">Edit</button>
+                <button class="btn btn-warning btn-sm">
+                  <a href="mailto:{{assign.email}}">Message to Firm</a>
+                </button>
+                <button class="btn btn-primary btn-sm" *ngIf="role === 'admin'" (click)="deleteAssign(assign.id)">Delete</button>
+                <button class="btn btn-primary btn-sm" (click)="createReport(assign.id)">Report</button>
+            </div>
+          </li>
+        </ul>
+
+        <!--<div class="activities">
+          <h1>ACTIVITIES</h1>
+
+          <div *ngIf="activitiesData.length === 0">
+            <h3>No activities yet!</h3>
+          </div>
+
+          <table *ngIf="activitiesData.length > 0">
+            <tr>
+              <th>Task</th>
+              <th>Firm</th>
+              <th>Start date assign</th>
+              <th>End date assign</th>
+              <th>Employee</th>
+              <th>Actions</th>
+            </tr>
+            <tr *ngFor="let activity of activitiesData" [ngStyle]="{'background-color': dateNow < activity.end_date ? '#5CB85C' : '#D9534F'}">
+              <td>
+                <button class="btn btn-primary btn-sm" (click)="assignProfile(activity.assign_id)">{{activity.task}}</button>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-sm" (click)="firmProfile(activity.firm_id)">{{activity.firm}}</button>
+              </td>
+              <td>{{activity.create_date | date: 'longDate'}}</td>
+              <td>{{activity.end_date | date: 'longDate'}}</td>
+              <td>
+                <button class="btn btn-primary btn-sm" (click)="userProfile(activity.user_id)">{{activity.user_full_name}}</button>
+              </td>
+              <td>
+                <a href="mailto:{{activity.firm_email}}">
+                  <button class="btn btn-warning btn-sm">Msg to Firm</button>
+                </a>
+                <a href="mailto:{{activity.user_email}}">
+                  <button class="btn btn-warning btn-sm">Msg to Employee</button>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </div>-->
+      </div>
+      <div class="firm-for-current-employee col-md-3">
+        <h3>Assigned firm to me:</h3>
+        <ul>
+          <li *ngFor="let firm of assigns">
+            <br/>
+            <button class="btn btn-success" (click)="firmProfile(firm.firm_id)">{{firm.firm}}</button>
+          </li>
+        </ul>
+        <h3>Other role employees:</h3>
+        <h4>My is:
+          <span>{{role}}</span>
+        </h4>
+        <table>
+          <tr>
+            <th>Employee name</th>
+            <th>Role</th>
+          </tr>
+          <tr *ngFor="let user of allUsers">
+            <td *ngIf="role !== user.role">
+              <button class="btn btn-success btn-sm" (click)="userProfile(user.id)">{{user.first_name}} {{user.last_name}}</button>
+            </td>
+            <td *ngIf="role !== user.role">{{user.role}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</body>

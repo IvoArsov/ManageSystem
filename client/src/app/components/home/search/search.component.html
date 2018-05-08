@@ -1,0 +1,13 @@
+<div>
+  <form #searchForm='ngForm' (ngSubmit)='onSubmit()'>    
+    <input 
+      type="text"
+      id="searchParam" 
+      name="searchParam" 
+      placeholder="Search bar"
+      [(ngModel)]='search.searchParam' 
+      #searchParam='ngModel' 
+      required />
+      <button type="submit" [disabled]="!searchForm.form.valid" class="btn btn-sm"><i class="fa fa-search" aria-hidden="true"></i></button>
+  </form>
+</div>

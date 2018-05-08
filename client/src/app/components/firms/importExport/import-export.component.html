@@ -1,0 +1,18 @@
+<h1>IMPORT EXPORT COMPONENT</h1>
+
+<form #excelTable='ngForm' (ngSubmit)='onSubmit(excelTable.value)'>
+    <div class="form-group">
+      <label for="file">Browse excel file:</label>
+      <input 
+        type="file" 
+        id="file" 
+        name="file" 
+        [(ngModel)]='excelTable.file'
+        #excelTable='ngModel' 
+        placeholder="Upload file"
+        (change)="fileChange($event)"
+        required/>              
+    </div>  
+        
+    <button type="submit" class="btn btn-success">Add table</button>
+  </form>

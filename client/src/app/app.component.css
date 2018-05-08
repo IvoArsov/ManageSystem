@@ -1,0 +1,14 @@
+/**{
+    background: #ccffcc;
+}*/
+footer{
+    padding: 10px;
+    background-color:#ccffcc;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+.wrapper{
+    margin-bottom: 40px;
+}

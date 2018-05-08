@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row">
+        <h1>New Assign</h1>
+
+        <form #addNewAssign='ngForm' (ngSubmit)='onSubmit(addNewAssign.value)'>
+            <div class="form-group">
+              <label for="task">Task:</label>
+              <input 
+                type="text" 
+                id="task" 
+                name="task" 
+                [(ngModel)]='newAssign.task'
+                #newAssign='ngModel' 
+                required/>              
+            </div>  
+            <div class="form-group">
+                <label for="end-date">End date:</label>
+                <input 
+                  type="date"
+                  id="end-date"
+                  name="endDate"
+                  [(ngModel)]="newAssign.endDate"
+                  #newAssign="ngModel"
+                  required/>
+            </div>
+            <div class="form-group">
+                <label for="employee-assign">First employee assign:</label>
+                <select 
+                  name="employeeAssign" 
+                  id="employee-assign"
+                  [(ngModel)]="newAssign.employee"
+                  #newAssign="ngModel"
+                  required>
+                  <option
+                    *ngFor="let employee of allEmployees"
+                    [ngValue]="employee.id">{{employee.username}} ({{employee.role}})</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="second-employee-assign">Second employee assign:</label>
+                <select 
+                  name="secondEmployeeAssign" 
+                  id="second-employee-assign"
+                  [(ngModel)]="newAssign.secondEmployee"
+                  #newAssign="ngModel"
+                >
+                  <option
+                    *ngFor="let employee of allEmployees" 
+                    [ngValue]="employee.id">{{employee.username}} ({{employee.role}})</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="notes">Notes:</label>
+                <textarea
+                  type="textarea"
+                  id="notes"
+                  name="notes"
+                  [(ngModel)]="newAssign.notes"
+                  #newAssign="ngModel"
+                ></textarea>
+            </div>         
+                
+            <button type="submit" [disabled]="!addNewAssign.form.valid" class="btn btn-success">Add assign</button>
+          </form>
+    </div>
+</div>

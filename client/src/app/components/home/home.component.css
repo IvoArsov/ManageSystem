@@ -1,0 +1,73 @@
+.nothing-found-notification{
+  color:red;
+}
+ul{
+  list-style-type: none;
+}
+img{
+  height: 200px;
+}
+.search-component{
+  margin-top: 20px;
+}
+span{
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.green-line{
+  color:#ccffcc;
+}
+.firm-container{
+  margin: 0 auto;
+  padding-top: 10px;
+  border-radius: 20px;
+  width: 90%;
+  background-color: #dbdcdd;
+}
+p>strong{
+  color: red;
+}
+.devider{
+  padding-bottom: 2%;
+  color: black;
+}
+table{
+  margin: 0 auto;
+}
+th{
+  border: 2px solid black;
+  text-align: center;
+  color: red;
+}
+td{
+  border: 2px solid #ccc;
+  padding: 5px;
+}
+.switch-view-btn{
+  margin-bottom: 2%;
+}
+.welcome{
+  color: red;
+  font-weight: bolder;
+}
+.admin-panel{
+  padding: 2% 0 2% 0; 
+}
+.admin-panel-btn{
+  margin-top: 15px;
+}
+.firm-table{
+  margin-left: -25%;
+}
+.firm-only-names{
+  margin-top: 140px;
+  background-color: #dbdcdd;
+  border-radius: 15px;
+  height: 550px;
+  width: 400px;
+  position: absolute;
+}
+.firm-only-names>ul{
+  overflow: auto;
+  height: 500px;
+}

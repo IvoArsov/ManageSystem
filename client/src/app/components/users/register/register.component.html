@@ -1,0 +1,102 @@
+
+<h1>REGISTER PAGE</h1>
+<form #registerUserForm='ngForm' novalidate (ngSubmit)='onSubmit(registerUserForm.value, registerUserForm.valid)'>
+  <div class="form-group">
+    <label for="firstName">First name:</label>
+    <input
+      type="text" 
+      id="firstName" 
+      name="firstName" 
+      [(ngModel)]='user.firstName' 
+      #name='ngModel'
+      required/>    
+  </div>
+  
+  <div class="form-group">
+    <label for="lastName">Last name:</label>
+    <input
+      type="text" 
+      id="lastName" 
+      name="lastName" 
+      [(ngModel)]='user.lastName' 
+      #name='ngModel'
+      required/>    
+  </div>
+
+  <div class="form-group">
+    <label for="username">Username:</label>
+    <input
+      type="text" 
+      id="username" 
+      name="username" 
+      [(ngModel)]='user.username' 
+      #name='ngModel'
+      required/>    
+  </div>
+
+  <div class="form-group">
+    <label for="role">Role</label>
+    <select 
+      name="role" 
+      id="role"
+      [(ngModel)]="user.role"
+      #name="ngModel"
+      required>
+        <option value="admin">Admin</option>
+        <option value="sales">Sales</option>
+        <option value="callCenterAgent">Call Center Agent</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input 
+      type="email" 
+      id="email" 
+      name="email" 
+      [(ngModel)]='user.email' 
+      email='true'
+      #email='ngModel' 
+      required/>
+    <div [hidden]='email.valid || email.pristine'>
+      Email is required!
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input 
+      type="password" 
+      id="password" 
+      name="password" 
+      [(ngModel)]='user.password'
+      #password='ngModel'
+      minlength="6"
+      maxlength="20"      
+      required/>
+    <div [hidden]='password.valid || password.pristine'>
+      Password is required! 
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="confirmPassword">Confirm password:</label>
+    <input 
+      type="password" 
+      id="confirmPassword" 
+      name="confirmPassword" 
+      [(ngModel)]='user.confirmPassword'  
+      #confirmPassword='ngModel'
+      minlength="6"
+      maxlength="20"      
+      required/>
+    <div [hidden]='password.value === confirmPassword.value || confirmPassword.pristine'>
+      Password and Confirm Password not match!
+    </div>
+  </div>
+  
+  <button
+    type="submit" 
+    [disabled]='!registerUserForm.form.valid || password.value !== confirmPassword.value' 
+    class="btn btn-success">Register</button>
+</form>

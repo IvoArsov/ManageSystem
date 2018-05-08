@@ -1,0 +1,13 @@
+<div id=navid *ngIf="username">Welcome <a (click)="getUser()">{{username}}</a></div>
+<nav>
+  <a *ngIf="loggedIn" routerLink='/'>Home</a>
+  <a *ngIf="loggedIn" routerLink='/new-firm'>New Firm</a>
+  <a *ngIf="loggedIn" routerLink='/import-export'>Import/Export</a>
+  <a *ngIf="loggedIn" (click)="logout()">Logout</a>  
+  <a *ngIf="!loggedIn" routerLink='/login'>Login</a>
+</nav>
+
+<div id="loading">
+  loading...
+</div>
+

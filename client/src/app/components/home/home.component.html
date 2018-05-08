@@ -1,0 +1,115 @@
+<div class="container">
+  <!--CONTAINERS-->
+  <div class="row">
+    <div>
+        <div>
+            <!--<div class="search-component" *ngIf="token">
+              <search (sendFirmsInfoToHome)="firmInfoReceived($event)"></search>
+            </div>
+          </div>-->
+          <div *ngIf='!token'>
+            <h1 class="welcome">PLEASE LOG IN</h1>
+          </div>
+          <div *ngIf="token">
+            <button *ngIf="user.role === 'admin'" class="btn btn-lg admin-panel-btn" (click)="goToAdminPanel()">Go to ADMIN PANEL</button>
+          </div>
+    </div>
+    <div class="col-md-10">
+        <user-profile *ngIf="token"></user-profile>
+    </div>
+    <div class="col-md-2">
+      <div *ngIf='token'>
+        <!--<div>
+          <h2>Firms:</h2>
+          <button class="btn btn-lg switch-view-btn" (click)="showHideTableContainer()">{{viewLabel}} view</button>
+          <h3 *ngIf='data.length === 0' class="nothing-found-notification">Noting found!</h3>
+          <ul *ngIf='data.length !== 0 && tableContainerView' class='firm-container'>
+            <li *ngFor="let firm of data">
+              <p>
+                <strong>Firm name:</strong>
+                <span>{{firm.firm}}</span>
+              </p>
+              <p>
+                <strong>Employee:</strong>
+                <span>{{firm.username}}</span>
+              </p>
+              <p>
+                <strong>Identifier:</strong> {{firm.unique_identifier}}</p>
+              <p>
+                <strong>Address:</strong> {{firm.address}}</p>
+              <p>
+                <strong>Contacts:</strong> {{firm.contacts}}</p>
+              <p>
+                <strong>Website:</strong> {{firm.website}}</p>
+              <p>
+                <strong>Email:</strong> {{firm.email}}</p>
+              <p>
+                <strong>Contact person:</strong> {{firm.contact_person}}</p>
+              <p>
+                <strong>Field of work:</strong> {{firm.field_of_work}}</p>
+              <p>
+                <strong>Comments:</strong> {{firm.comments}}</p>
+              <button *ngIf='user.role === "admin" || user.userId === firm.owner_id' class='btn btn-success' (click)='editFirm(firm)'>Edit</button>
+              <button *ngIf='user.role === "admin" || user.userId === firm.owner_id' (click)='deleteFirm(firm.id)' class='btn btn-danger'>Delete</button>
+              <p class="devider">
+                <strong>---------------------------------------------------------------------</strong>
+              </p>
+            </li>
+          </ul>
+        </div>
+        TABLE
+        <table *ngIf='data.length !== 0 && !tableContainerView' class="firm-table">
+          <tr>
+            <th>Identifier</th>
+            <th>Firm name</th>
+            <th>Employee</th>
+            <th>Address</th>
+            <th>Contacts</th>
+            <th>Website</th>
+            <th>Email</th>
+            <th>Contact person</th>
+            <th>Field of work</th>
+            <th>Comments</th>
+            <th *ngIf='user.role === "admin"'>Actions</th>
+          </tr>
+          <tr *ngFor="let firm of data">
+            <td>{{firm.unique_identifier}}</td>
+            <td>
+              <button class="btn btn-success" (click)="firmProfile(firm.id)">{{firm.firm}}</button>
+            </td>
+            <td>
+              <span>{{firm.username}}</span>
+            </td>
+            <td>{{firm.address}}</td>
+            <td>{{firm.contacts}}</td>
+            <td>
+              <a href="{{firm.website}}" target="_blank">{{firm.website}}</a>
+            </td>
+            <td>{{firm.email}}</td>
+            <td>{{firm.contact_person}}</td>
+            <td>{{firm.field_of_work}}</td>
+            <td>{{firm.comments}}</td>
+            <td *ngIf='user.role === "admin"'>
+              <button class='btn btn-sm btn-success' (click)='editFirm(firm)'>Edit</button>
+              <button class='btn btn-sm btn-danger' (click)='deleteFirm(firm.id)'>Delete</button>
+              <button class="btn btn-warning" (click)="firmProfile(firm.id)">Assign</button>
+            </td>
+          </tr>
+        </table> -->
+
+        <div class="firm-only-names">
+            <div class="search-component" *ngIf="token">
+              <search (sendFirmsInfoToHome)="firmInfoReceived($event)"></search>
+            </div>
+          <ul>
+            <h3>Firms:</h3>
+            <li *ngFor="let firm of data">
+              <br/>
+              <button class="btn btn-success" (click)="firmProfile(firm.id)">{{firm.firm}}</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <h1>Assign Profile</h1>
+        <div class="col-md-6">
+            <h2><span>Task: </span>{{assignData.task}}</h2>
+            <h3 [ngStyle]="{'color': dateCondition ? 'green' : 'red'}"><span>End date: </span>{{assignData.end_date | date:'longDate'}}</h3>
+            <h3><span>Status: </span>{{assignData.status}}</h3>
+            <h3><span>Notes: </span>{{assignData.assign_notes}}</h3>
+        </div>
+        <div class="col-md-6">
+            <h2><span>Firm: </span><button class="btn btn-success" (click)="firmProfile(assignData.firm_id)">{{assignData.firm}}</button></h2>
+            <h3><span>Contact person: </span>{{assignData.contact_person}}</h3>
+            <h3><span>Contacts: </span>{{assignData.contacts}}</h3>
+            <h3><span>Firm comments: </span>{{assignData.firm_notes}}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2><span>Username: </span>{{assignData.username}}</h2>
+            <h3><span>Employee name: </span>{{assignData.first_name}} {{assignData.last_name}}</h3>
+            <h3><span>Role: </span>{{assignData.role}}</h3>
+            <div>
+                <a href="mailto:{{assignData.firm_email}}"><button class="btn btn-warning">Msg to Firm</button></a>
+                <a href="mailto:{{assignData.employee_email}}"><button class="btn btn-warning">Msg to Employee</button></a>
+                <button class="btn btn-success" *ngIf="userRole === 'admin' || userId === assignData.user_id" (click)="editAssign()">Edit Assign</button>                
+                <button class="btn btn-danger" *ngIf="userRole === 'admin'" (click)="deleteAssign()">Delete Assign</button>                
+            </div>
+        </div>
+    </div>
+</div>
+

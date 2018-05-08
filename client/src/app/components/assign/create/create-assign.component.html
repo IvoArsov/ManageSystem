@@ -1,0 +1,88 @@
+<h1>CREATE ASSIGN</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <div>
+            <h2>EMPLOYEE:</h2>
+            <p><span>First name:</span> {{userToAssign.first_name}}</p>
+            <p><span>Last name:</span> {{userToAssign.last_name}}</p>
+            <a href="mailto:{{userToAssign.email}}"><button class="btn btn-warning">Msg to employee</button></a>
+        </div>
+        <br/>
+        <br/>
+        <div>
+            <table class="assigns-table">
+                <tr>
+                  <th>Task</th>
+                  <th>End date</th> 
+                  <th>Firm</th>
+                  <th>Notes</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+                <tr *ngFor="let assign of assigns" [ngStyle]="{'background-color': dateNow < assign.end_date ? '#5CB85C' : '#D9534F'}">
+                  <td><button class="btn btn-primary btn-sm" (click)="assignProfile(assign.id)">{{assign.task}}</button></td>
+                  <td>{{assign.end_date | date:'longDate'}}</td> 
+                  <td>{{assign.firm}}</td>
+                  <td>{{assign.notes}}</td>
+                  <td>{{assign.status}}</td>
+                  <td>
+                      <button class="btn btn-primary btn-sm" (click)="editAssign(assign.id)">Edit</button>
+                      <button class="btn btn-primary btn-sm" (click)="deleteAssign(assign.id)">Delete</button>
+                  </td>
+                </tr>                
+              </table>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <!--///////////////////////////////////////////////////////////////////////// -->
+        <form #addNewAssign='ngForm' (ngSubmit)='onSubmit(addNewAssign.value)'>
+            <div class="form-group">
+              <label for="task">Task:</label>
+              <input 
+                type="text" 
+                id="task" 
+                name="task" 
+                [(ngModel)]='newAssign.task'
+                #newAssign='ngModel' 
+                required/>              
+            </div>  
+            <div class="form-group">
+                <label for="end-date">End date:</label>
+                <input 
+                  type="date"
+                  id="end-date"
+                  name="endDate"
+                  [(ngModel)]="newAssign.endDate"
+                  #newAssign="ngModel"
+                  required/>
+            </div>
+            <div class="form-group">
+                <label for="firm-assign">Firm assign:</label>
+                <select 
+                  name="firmAssign" 
+                  id="firm-assign"
+                  [(ngModel)]="newAssign.firm"
+                  #newAssign="ngModel"
+                  required>
+                  <option
+                    *ngFor="let firm of firmNames" 
+                    [ngValue]="firm.id">{{firm.firm}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="notes">Notes:</label>
+                <textarea
+                  type="textarea"
+                  id="notes"
+                  name="notes"
+                  [(ngModel)]="newAssign.notes"
+                  #newAssign="ngModel"
+                ></textarea>
+            </div>         
+                
+            <button type="submit" [disabled]="!addNewAssign.form.valid" class="btn btn-success">Add assign</button>
+          </form>
+        <!--///////////////////////////////////////////////////////////////////////// -->
+    </div>
+</div>

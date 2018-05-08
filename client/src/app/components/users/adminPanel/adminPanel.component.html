@@ -1,0 +1,360 @@
+<h1>ADMIN PANEL</h1>
+
+<div>
+  <button class="btn btn-primary" (click)="goToRegisterUser()">Register new user</button>
+  <button class="btn btn-primary" (click)="showEmployeesView()">Employees</button>
+  <button class="btn btn-primary" (click)="showFirmsView()">Firms</button>
+  <button class="btn btn-primary" (click)="showActivitiesView()">Activities</button>
+  <button class="btn btn-primary" (click)="showAssignsView()">Assigns</button>
+  <button class="btn btn-primary" (click)="showReportsView()">Reports</button>
+</div>
+
+<div class="search">
+  <form #searchForm='ngForm' (ngSubmit)='onSubmit(searchForm.value)'>
+    <input type="text" id="searchParam" name="searchParam" placeholder="Search bar" [(ngModel)]='search.searchParam' #search='ngModel'
+      required />
+    <select name="type" id="type" [(ngModel)]='search.type' #search='ngModel'>
+      <option value="byFirm" selected>Firm</option>
+      <option value="byEmployee">Employee</option>
+      <option value="byAssign">Assign</option>
+    </select>
+    <button type="submit" [disabled]="!searchForm.form.valid" class="btn btn-sm">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </button>
+  </form>
+  <button class="btn" (click)="clearSearchResults()">Clear search</button>
+</div>
+
+<div *ngIf='nothingFoundLabel'>
+  <h3 class="nothing-found-notification">Noting found!</h3>
+</div>
+
+<div class="search-results">
+  <div *ngIf="searchResultFirm.length > 0">
+    <h2>Firms found!</h2>
+    <table>
+      <tr>
+        <th>Firm name</th>
+        <th>Contact person</th>
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let firm of searchResultFirm">
+        <td>
+          <button class="btn btn-success btn-sm" (click)="firmProfile(firm.id)">{{firm.firm}}</button>
+        </td>
+        <td>{{firm.contact_person}}</td>
+        <td>
+          <a href="mailto:{{firm.email}}">
+            <button class="btn btn-warning btn-sm">Msg to Firm</button>
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="searchResultEmployee.length > 0">
+    <h2>Employees found!</h2>
+    <table>
+      <tr>
+        <th>Employee name</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let employee of searchResultEmployee">
+        <td>
+          <button class="btn btn-success btn-sm" (click)="userProfile(employee.id)">{{employee.full_name}}</button>
+        </td>
+        <td>{{employee.role}}</td>
+        <td>
+          <a href="mailto:{{employee.email}}">
+            <button class="btn btn-warning btn-sm">Msg to Employee</button>
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="searchResultAssign.length > 0">
+    <h2>Assigns found!</h2>
+    <table>
+      <tr>
+        <th>Task</th>
+        <th>End Date</th>
+      </tr>
+      <tr *ngFor="let assign of searchResultAssign" [ngStyle]="{'background-color': dateNow < assign.end_date ? '#5CB85C' : '#D9534F'}">
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="assignProfile(assign.id)">{{assign.task}}</button>
+        </td>
+        <td>{{assign.end_date | date: 'longDate'}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="row admin-panel">
+  <!--EMPLOYEES-->
+  <div *ngIf="employeesView" class="col-md-12">
+    <div class="row">
+      <!--<table>
+        <tr>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+        <tr *ngFor="let employee of employeesWithoutAssign">
+          <td>{{employee.first_name}}</td>
+          <td>{{employee.last_name}}</td>
+          <td>{{employee.username}}</td>
+          <td>{{employee.email}}</td>
+          <td>{{employee.role}}</td>
+          <td>
+            <button class="btn btn-warning" (click)="createAssign(employee.id)">Assign</button>
+            <a class="mail-to" href="mailto:{{employee.email}}">
+              <button class="btn btn-warning">Massage</button>
+            </a>
+            <button class="btn btn-danger" (click)="deleteUser(employee.id)">Delete</button>
+          </td>
+        </tr>
+      </table>-->
+      <div class="col-md-6 employees-without-assigns">
+        <h3>Employee without assigns:</h3>
+        <ul>
+          <li *ngFor="let employee of employeesWithoutAssign">
+            <br />
+            <button class="btn btn-success" (click)="createAssign(employee.id)">{{employee.first_name}} {{employee.last_name}}</button>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-6 employees-with-assigns">
+        <h3>Employee with assigns:</h3>        
+        <ul>
+          <li *ngFor="let employee of employeesWithAssign">
+            <br/>
+            <button class="btn btn-success" (click)="createAssign(employee.id)">{{employee.first_name}} {{employee.last_name}}</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--<table>
+      <tr>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let employee of employeesWithAssign">
+        <td>{{employee.first_name}}</td>
+        <td>{{employee.last_name}}</td>
+        <td>{{employee.username}}</td>
+        <td>{{employee.email}}</td>
+        <td>{{employee.role}}</td>
+        <td>
+          <button class="btn btn-warning" (click)="createAssign(employee.id)">Assign</button>
+          <a class="mail-to" href="mailto:{{employee.email}}">
+            <button class="btn btn-warning">Massage</button>
+          </a>
+          <button class="btn btn-danger" (click)="deleteUser(employee.id)">Delete</button>
+        </td>
+      </tr>
+    </table>-->
+  </div>
+  <!--FIRMS-->
+  <div *ngIf="firmsView" class="col-md-12">
+    <div>
+      <!--<table>
+              <tr>
+                <th>Identifier</th>
+                <th>Firm name</th>
+                <th>Employee</th>     
+                <th>Address</th>
+                <th>Contacts</th>
+                <th>Website</th>
+                <th>Email</th>
+                <th>Contact person</th>
+                <th>Field of work</th>
+                <th>Comments</th>
+                <th>Actions</th>
+              </tr>
+              <tr *ngFor="let firm of firmsWithoutAssign">
+                <td>{{firm.unique_identifier}}</td>
+                <td><button class="btn btn-success" (click)="firmProfile(firm.firm_id)">{{firm.firm}}</button></td>
+                <td><span>{{firm.employee}}</span></td>     
+                <td>{{firm.address}}</td>
+                <td>{{firm.contacts}}</td>
+                <td><a href="{{firm.website}}" target="_blank">{{firm.website}}</a></td>
+                <td>{{firm.email}}</td>
+                <td>{{firm.contact_person}}</td>
+                <td>{{firm.field_of_work}}</td>
+                <td>{{firm.comments}}</td>
+                <td>
+                    <button class='btn btn-sm btn-success' (click) = 'editFirm(firm.firm_id)'>Edit</button> 
+                    <button class='btn btn-sm btn-danger' (click)='deleteFirm(firm.firm_id)'>Delete</button>
+                    <button class="btn btn-warning" (click)="firmProfile(firm.firm_id)">Show Assigns</button>
+                    <button class="btn btn-success" (click)="createAssignByFirm(firm.firm_id)">Create Assign</button>
+                 </td>
+              </tr>
+            </table>
+        </div>
+        <h1>FIRMS WITH ASSIGN</h1>
+        <table>
+            <tr>
+              <th>Identifier</th>
+              <th>Firm name</th>
+              <th>Employee</th>     
+              <th>Address</th>
+              <th>Contacts</th>
+              <th>Website</th>
+              <th>Email</th>
+              <th>Contact person</th>
+              <th>Field of work</th>
+              <th>Comments</th>
+              <th>Actions</th>
+            </tr>
+            <tr *ngFor="let firm of firmsWithAssign">
+              <td>{{firm.unique_identifier}}</td>
+              <td><button class="btn btn-success" (click)="firmProfile(firm.firm_id)">{{firm.firm}}</button></td>
+              <td><span>{{firm.employee}}</span></td>     
+              <td>{{firm.address}}</td>
+              <td>{{firm.contacts}}</td>
+              <td><a href="{{firm.website}}" target="_blank">{{firm.website}}</a></td>
+              <td>{{firm.email}}</td>
+              <td>{{firm.contact_person}}</td>
+              <td>{{firm.field_of_work}}</td>
+              <td>{{firm.comments}}</td>
+              <td>
+                  <button class='btn btn-sm btn-success' (click) = 'editFirm(firm.firm_id)'>Edit</button> 
+                  <button class='btn btn-sm btn-danger' (click)='deleteFirm(firm.firm_id)'>Delete</button>
+                  <button class="btn btn-warning" (click)="firmProfile(firm.firm_id)">Show Assigns</button>
+                  <button class="btn btn-success" (click)="createAssignByFirm(firm.firm_id)">Create Assign</button>
+               </td>
+            </tr>
+          </table>-->
+      <div class="row">
+        <div class="col-md-6 firms-without-assings">
+          <h3>Firms without assign:</h3>
+          <ul>
+            <li *ngFor="let firm of firmsWithoutAssign">
+              <br/>
+              <button class="btn btn-success" (click)="firmProfile(firm.firm_id)">{{firm.firm}}</button>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-6 firms-with-assings">
+          <h3>Firms with assign:</h3>
+          <ul>
+            <li *ngFor="let firm of firmsWithAssign">
+              <br/>
+              <button class="btn btn-success" (click)="firmProfile(firm.firm_id)">{{firm.firm}}</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--ACTIVITIES-->
+  <div *ngIf="activitiesView">
+    <h1>ACTIVITIES</h1>
+    <table>
+      <tr>
+        <th>Task</th>
+        <th>Firm</th>
+        <th>Start date assign</th>
+        <th>End date assign</th>
+        <th>Employee</th>
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let activity of activitiesData" [ngStyle]="{'background-color': dateNow < activity.end_date ? '#5CB85C' : '#D9534F'}">
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="assignProfile(activity.assign_id)">{{activity.task}}</button>
+        </td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="firmProfile(activity.firm_id)">{{activity.firm}}</button>
+        </td>
+        <td>{{activity.create_date | date: 'longDate'}}</td>
+        <td>{{activity.end_date | date: 'longDate'}}</td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="userProfile(activity.user_id)">{{activity.user_full_name}}</button>
+        </td>
+        <td>
+          <a href="mailto:{{activity.firm_email}}">
+            <button class="btn btn-warning btn-sm">Msg to Firm</button>
+          </a>
+          <a href="mailto:{{activity.user_email}}">
+            <button class="btn btn-warning btn-sm">Msg to Employee</button>
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!--ASSIGNS-->
+  <div *ngIf="assignsView">
+    <h1>ASSIGNS</h1>
+    <div class="row">
+      <table>
+        <tr>
+          <th>Task</th>
+          <th>End Date</th>
+          <th>Firm</th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Username</th>
+          <th>Status</th>
+          <th>Notes</th>
+          <th>Actions</th>
+        </tr>
+        <tr *ngFor="let assign of allAssigns" [ngStyle]="{'background-color': dateNow < assign.end_date ? '#5CB85C' : '#D9534F'}">
+          <td>
+            <button class="btn btn-primary" (click)="assignProfile(assign.assign_id)">{{assign.task}}</button>
+          </td>
+          <td>{{assign.end_date | date:'longDate'}}</td>
+          <td>
+            <button class="btn btn-primary" (click)="firmProfile(assign.firm_id)">{{assign.firm}}</button>
+          </td>
+          <td>{{assign.first_name}}</td>
+          <td>{{assign.last_name}}</td>
+          <td>{{assign.username}}</td>
+          <td>{{assign.status}}</td>
+          <td>{{assign.notes}}</td>
+          <td>
+            <a class="mail-to" href="mailto:{{assign.user_email}}">
+              <button class="btn btn-warning">Msg to employee</button>
+            </a>
+            <button class="btn btn-primary" (click)="deleteAssign(assign.assign_id, assign.user_id)">Delete</button>
+            <button class="btn btn-primary" (click)="editAssign(assign.assign_id)">Edit</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!--NOTIFICATIONS-->
+  <div *ngIf="reportsView">
+    <h1>REPORTS</h1>
+    <div class="row">
+      <table>
+        <tr>
+          <th>Result</th>
+          <th>Failure Reason</th>
+          <th>Task</th>
+          <th>Status</th>
+          <th>From employee</th>
+          <th>Actions</th>
+        </tr>
+        <!--REPORTS-->
+        <tr *ngFor="let report of reportsData">
+          <td>{{report.result}}</td>
+          <td>{{report.failure_reason}}</td>
+          <td>{{report.task}}</td>
+          <td>{{report.status}}</td>
+          <td>{{report.username}}</td>
+          <td>
+            <button class="btn btn-danger" (click)="deleteReport(report.report_id)">Delete</button>
+            <button class="btn btn-success" (click)=assignProfile(report.assign_id)>View Assign</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

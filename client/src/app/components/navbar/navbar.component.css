@@ -1,0 +1,23 @@
+.notification p{
+  background-color: lightgreen; 
+}
+a{
+  background-color: #DDDDDD;
+  border-radius: 6px;
+  color:#5c5c3d;
+  font-size: 1.5em;
+  padding: 10px;
+  text-decoration: none;
+}
+nav{
+  padding: 10px;
+}
+#navid{
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#loading{
+  display:none;
+}
+

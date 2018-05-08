@@ -1,0 +1,16 @@
+span {
+    font-weight: bold;
+}
+table{
+    width: 90%;
+    margin: 0 auto;
+  }
+  th{
+    border: 2px solid black;
+    text-align: center;
+    color: red;
+  }
+  td{
+    border: 2px solid #ccc;
+    padding: 5px;
+  }

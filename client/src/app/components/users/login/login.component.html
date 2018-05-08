@@ -1,0 +1,28 @@
+<h1>LOGIN PAGE</h1>
+<div>{{userToken}}</div>
+<form #loginFormUser='ngForm' (ngSubmit)='onSubmit()'>
+  <div class="form-group">
+    <label for="username">Username:</label>
+    <input 
+      type="text" 
+      id="username" 
+      name="username" 
+      [(ngModel)]='user.username' 
+      #email='ngModel' 
+      required/>    
+  </div>  
+
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input 
+      type="password" 
+      id="password"
+      name="password" 
+      [(ngModel)]='user.password'
+      #password='ngModel'
+      required
+      minlength="6"
+      maxlength="20"/>    
+  </div>  
+  <button type="submit" [disabled]="!loginFormUser.form.valid" class="btn btn-success">Login</button>
+</form>

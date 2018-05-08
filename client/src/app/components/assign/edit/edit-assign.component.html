@@ -1,0 +1,58 @@
+<h1>EDIT ASSIGN</h1>
+
+<h2>Assign to <span>{{assignFirm}}</span></h2>
+<h3>End date: <span>{{assignEndDate | date:'longDate'}}</span></h3>
+<form #editAssign='ngForm' (ngSubmit)='onSubmit(editAssign.value)'>
+        <div class="form-group">
+          <label for="task">Task:</label>
+          <input 
+            type="text" 
+            id="task" 
+            name="task" 
+            [(ngModel)]='assign.task'
+            #assign='ngModel' 
+            value="{{assignTask}}"
+            />              
+        </div>  
+        <div class="form-group">
+            <label for="end-date">End date:</label>
+            <input 
+              type="date"
+              id="end-date"
+              name="endDate"
+              [(ngModel)]="assign.endDate"
+              #assign="ngModel"
+              value="{{assignEndDate | date:'longDate'}}"
+              required/>
+        </div>
+
+        <h5>Notes:</h5>
+        <p>{{assignNotes}}</p>
+
+        <div class="form-group">
+            <label for="notes">Notes:</label>
+            <textarea
+              type="textarea"
+              id="notes"
+              name="notes"
+              [(ngModel)]="assign.notes"
+              #assign="ngModel"
+            ></textarea>
+        </div>         
+
+        <div class="form-group">
+          <label for="status">Status:</label>
+          <select
+            id="status"
+            name="status"
+            [(ngModel)]="assign.status"
+            #status="ngModel"
+            value="{{assignStatus}}"
+          >
+            <option value="open">Open</option>
+            <option value="closed">Closed</option>
+          </select>
+        </div>
+            
+        <button type="submit" [disabled]="!editAssign.form.valid" class="btn btn-success">Edit assign</button>
+      </form>
